@@ -26,6 +26,13 @@ jobs:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             repository: DDNet-WinArm64/ddnet-libs
             run-id: 10107145927
-      - name: Show files
+      - name: Install minimal stable Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+            profile: minimal
+            toolchain: stable
+      - name: Build
         run: |
-            Get-ChildItem -Path ddnet-winarm64 -Recurse
+            cd ddnet-winarm64
+            cmake -S . -B build -A ARM64 -DCMAKE_BUILD_TYPE=Release
+            cmake --build build --config Release --parallel
