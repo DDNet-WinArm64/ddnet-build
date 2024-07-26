@@ -53,6 +53,7 @@ jobs:
           name: ddnet-windows-arm64-latest
           path: ddnet-winarm64/build/DDNet-18.4-win-arm64.zip
   publish:
+    permissions: write-all
     runs-on: windows-latest
     needs: build
     steps:
