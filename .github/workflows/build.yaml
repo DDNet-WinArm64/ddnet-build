@@ -30,9 +30,19 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
             profile: minimal
+            target: aarch64-pc-windows-msvc
             toolchain: stable
+      - name: Prepare Vulkan SDK
+        uses: humbletim/setup-vulkan-sdk@v1.2.0
+        with:
+            vulkan-query-version: latest
+            vulkan-components: SPIRV-Tools, Glslang
+            vulkan-use-cache: true
       - name: Build
         run: |
             cd ddnet-winarm64
-            cmake -S . -B build -A ARM64 -DCMAKE_BUILD_TYPE=Release
+            cmake -S . -B build -A ARM64 -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_SYSTEM_NAME=Windows \
+                -DCMAKE_SYSTEM_PROCESSOR=ARM64 \
+                -DCMAKE_RUST_COMPILER_TARGET=aarch64-pc-windows-msvc
             cmake --build build --config Release --parallel
