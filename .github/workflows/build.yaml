@@ -1,0 +1,19 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Prepare MSVC
+        uses: TheMrMilchmann/setup-msvc-dev@v3
+        with:
+          arch: amd64_arm64
+          spectre: true
+      - name: Download ddnet
+        run: |
+            Invoke-WebRequest https://github.com/DDNet-WinArm64/ddnet/archive/refs/heads/winarm64.zip -OutFile winarm64.zip
+            unzip winarm64.zip
