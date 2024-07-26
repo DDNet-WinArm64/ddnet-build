@@ -1,6 +1,9 @@
 name: Build
 
-on: [push]
+on: 
+  push:
+    tags:
+    - '*'
 
 jobs:
   build:
@@ -49,3 +52,15 @@ jobs:
         with:
           name: ddnet-windows-arm64-latest
           path: ddnet-winarm64/build/DDNet-18.4-win-arm64.zip
+  publish:
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+      - name: Publish
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: DDNet-18.4-win-arm64.zip
+          body: "DDNet 18.4 Build"
+      
