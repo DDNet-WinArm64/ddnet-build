@@ -44,4 +44,8 @@ jobs:
             cd ddnet-winarm64
             cmake -S . -B build -A ARM64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_SYSTEM_PROCESSOR=ARM64 -DCMAKE_RUST_COMPILER_TARGET=aarch64-pc-windows-msvc
             cmake --build build --config Release --target package_default --parallel
-            Get-ChildItem -Path build
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ddnet-windows-arm64-latest
+          path: ddnet-winarm64/build/DDNet-18.4-win-arm64.zip
