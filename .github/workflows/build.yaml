@@ -17,3 +17,15 @@ jobs:
         run: |
             Invoke-WebRequest https://github.com/DDNet-WinArm64/ddnet/archive/refs/heads/winarm64.zip -OutFile winarm64.zip
             unzip winarm64.zip
+            Remove-Item -Recurse -Force ddnet-winarm64/ddnet-libs
+      - name: Download ddnet-libs
+        uses: actions/download-artifact@v4
+        with:
+            name: ddnet-libs-windows-arm64-llvm-ucrt
+            path: ${{github.workspace}}/ddnet-winarm64/ddnet-libs
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            repository: DDNet-WinArm64/ddnet-libs
+            run-id: 10107145927
+      - name: Show files
+        run: |
+            Get-ChildItem -Path ddnet-winarm64 -Recurse
