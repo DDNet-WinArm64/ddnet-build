@@ -51,7 +51,7 @@ jobs:
           path: ddnet-winarm64/build/DDNet-18.4-win-arm64.zip
   publish:
     permissions: write-all
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Download Artifacts
