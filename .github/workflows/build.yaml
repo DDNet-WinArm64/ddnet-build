@@ -1,9 +1,6 @@
 name: Build
 
-on: 
-  push:
-    tags:
-    - '*'
+on: [push]
 
 jobs:
   build:
@@ -59,6 +56,8 @@ jobs:
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
+      - name: Build
+        run: ls -lha .
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
