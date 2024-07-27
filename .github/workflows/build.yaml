@@ -5,6 +5,8 @@ on: [push]
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      SCCACHE_GHA_ENABLED: "true"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,10 +41,12 @@ jobs:
             vulkan-query-version: latest
             vulkan-components: SPIRV-Tools, Glslang
             vulkan-use-cache: true
+      - name: Run sccache-cache
+        uses: mozilla-actions/sccache-action@v0.0.5
       - name: Build
         run: |
             cd ddnet-winarm64
-            cmake -S . -B build -A ARM64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_SYSTEM_PROCESSOR=ARM64 -DCMAKE_RUST_COMPILER_TARGET=aarch64-pc-windows-msvc
+            cmake -S . -B build -A ARM64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_SYSTEM_PROCESSOR=ARM64 -DCMAKE_RUST_COMPILER_TARGET=aarch64-pc-windows-msvc
             cmake --build build --config Release --target package_default --parallel
       - name: Upload
         uses: actions/upload-artifact@v4
