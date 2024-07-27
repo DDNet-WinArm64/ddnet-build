@@ -58,11 +58,9 @@ jobs:
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
-      - name: Unzip Artifact
-        run: unzip ddnet-windows-arm64-latest
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
-          artifacts: DDNet-18.4-win-arm64.zip
+          artifacts: ddnet-windows-arm64-latest/DDNet-18.4-win-arm64.zip
           body: "DDNet 18.4 Build"
       
