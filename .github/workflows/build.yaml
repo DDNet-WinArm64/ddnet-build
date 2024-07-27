@@ -29,12 +29,10 @@ jobs:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             repository: DDNet-WinArm64/ddnet-libs
             run-id: 10107145927
-      - name: Install minimal stable Rust toolchain
-        uses: actions-rs/toolchain@v1
+      - name: Install stable Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
         with:
-            profile: minimal
-            target: aarch64-pc-windows-msvc
-            toolchain: stable
+            targets: aarch64-pc-windows-msvc
       - name: Prepare Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
         with:
@@ -60,8 +58,8 @@ jobs:
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
-      - name: Build
-        run: ls -lha .
+      - name: Unzip Artifact
+        run: unzip ddnet-windows-arm64-latest
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
