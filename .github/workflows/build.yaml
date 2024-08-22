@@ -20,9 +20,9 @@ jobs:
           spectre: true
       - name: Download ddnet
         run: |
-            Invoke-WebRequest https://github.com/DDNet-WinArm64/ddnet/archive/266b3e78b2c6034099558959f177a7ef8c1eb56b/winarm64.zip -OutFile winarm64.zip
+            Invoke-WebRequest https://github.com/DDNet-WinArm64/ddnet/archive/a1daef382d75eaa4692bb64aae6397fd4abae256/winarm64.zip -OutFile winarm64.zip
             unzip winarm64.zip
-            Rename-Item ddnet-266b3e78b2c6034099558959f177a7ef8c1eb56b ddnet-winarm64
+            Rename-Item ddnet-a1daef382d75eaa4692bb64aae6397fd4abae256 ddnet-winarm64
             Remove-Item -Recurse -Force ddnet-winarm64/ddnet-libs
       - name: Download ddnet-libs
         uses: actions/download-artifact@v4
